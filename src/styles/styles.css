@@ -49,4 +49,34 @@
       gap: 15px;
     }
   }
+
+  .pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    justify-content: center;
+  }
+  
+  .pagination button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    border: none;
+    background-color: #eedbf8;
+    color: black;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .pagination button.active,
+  .pagination button:hover {
+    background-color: #784397;
+    color: white;
+    font-weight: bold;
+  }
+  
+  .pagination button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
   
