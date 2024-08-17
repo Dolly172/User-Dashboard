@@ -18,12 +18,12 @@ To get started with the project, follow these steps:
 1. **Clone the Repository:**
 
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/Dolly172/User-Dashboard.git
 
 2. **Navigate to the Project Directory:**
 
     ```bash
-    cd <project-directory>
+    cd User-Dashboard
 
 3. **Install Dependencies:**
 
