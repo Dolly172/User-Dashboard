@@ -1,70 +1,85 @@
-# Getting Started with Create React App
+# User Dashboard Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+This project is a simple, responsive dashboard application built with React that displays a list of user data. The application includes features for viewing, filtering, sorting, and searching the data. It is designed to be accessible and optimized for performance.
 
-In the project directory, you can run:
+## Getting Started
 
-### `npm start`
+To get started with the project, follow these steps:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Prerequisites
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Node.js (v14 or higher)
+- npm or Yarn
 
-### `npm test`
+### Installation
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. **Clone the Repository:**
 
-### `npm run build`
+   ```bash
+   git clone <repository-url>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+2. **Navigate to the Project Directory:**
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+    ```bash
+    cd <project-directory>
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Install Dependencies:**
 
-### `npm run eject`
+    ```bash
+    npm install
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+4. **Start the Development Server:**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+     ```bash
+    npm start
+   
+- The application will be available at http://localhost:3000.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Features
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+- **Data Display:** Displays user details including Name, Email, Role, and Status.
+- **Filtering:** Filter users by Role and Status.
+- **Sorting:** Sort users by Name and Email with ascending, descending, and original order options.
+- **Search:** Search for users by Name or Email.
+- **Pagination:** Navigate through pages with a fixed number of entries per page (6 entries).
+- **Accessibility:** Fully navigable via keyboard and includes ARIA attributes for screen reader support.
+- **Responsive Design:** The layout adapts to different screen sizes.
 
-## Learn More
+## How to Use
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+#### Viewing Data
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+The application displays a table of users with the following columns:
+- **Name**
+- **Email**
+- **Role**
+- **Status**
 
-### Code Splitting
+#### Filtering
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- **Role Filter:** Select a role from the dropdown to filter users by their role.
+- **Status Filter:** Choose between "Active" and "Inactive" to filter users by their status.
 
-### Analyzing the Bundle Size
+#### Sorting
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+- **Name and Email Columns:** Click on the column headers (Name or Email) to sort the data. The sorting behavior toggles between:
 
-### Making a Progressive Web App
+  1. **Ascending Order:** First click sorts the data in ascending order.
+  2. **Descending Order:** Second click sorts the data in descending order.
+  3. **Original Order:** Third click resets the data to its original unsorted order.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+#### Searching
 
-### Advanced Configuration
+- **Search Bar:** Enter text in the search bar to filter the users by Name or Email. The search is case-insensitive.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+#### Pagination
 
-### Deployment
+- **Page Navigation:** Navigate through pages using the pagination controls. Each page displays 6 entries.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## Accessibility
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+  1. **Keyboard Navigation:** The dashboard is fully navigable using the keyboard.
+  2. **Screen Reader Support:** ARIA attributes are used to provide context for screen readers.
+  3. **Sort Indicators:** Sort arrows are shown on hover over the table headers to indicate the sorting action.
