@@ -15,7 +15,7 @@ const Dashboard = () => {
   const [currentPage, setCurrentPage] = useState(1);
 
   const filteredUsers = useMemo(() => {
-    const sortedAndFilteredUsers = userData
+    return userData
       .filter(user =>
         user.name.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
         user.email.toLowerCase().includes(filters.searchTerm.toLowerCase())
@@ -26,23 +26,16 @@ const Dashboard = () => {
         if (!filters.sortField) return 0;
         return a[filters.sortField].localeCompare(b[filters.sortField]);
       });
+  }, [filters]);
 
+  const paginatedUsers = useMemo(() => {
     const startIndex = (currentPage - 1) * PAGE_SIZE;
-    return sortedAndFilteredUsers.slice(startIndex, startIndex + PAGE_SIZE);
-  }, [filters, currentPage]);
+    return filteredUsers.slice(startIndex, startIndex + PAGE_SIZE);
+  }, [filteredUsers, currentPage]);
 
   const totalPages = useMemo(() => {
-    const filteredDataCount = userData
-      .filter(user =>
-        user.name.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
-        user.email.toLowerCase().includes(filters.searchTerm.toLowerCase())
-      )
-      .filter(user => filters.role ? user.role === filters.role : true)
-      .filter(user => filters.status ? user.status === filters.status : true)
-      .length;
-
-    return Math.ceil(filteredDataCount / PAGE_SIZE);
-  }, [filters]);
+    return Math.ceil(filteredUsers.length / PAGE_SIZE);
+  }, [filteredUsers]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
@@ -86,7 +79,7 @@ const Dashboard = () => {
           <option value="Inactive">Inactive</option>
         </select>
       </div>
-      <UserTable users={filteredUsers} onSortChange={handleSortChange} sortField={filters.sortField} />
+      <UserTable users={paginatedUsers} onSortChange={handleSortChange} sortField={filters.sortField} />
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
     </div>
   );
