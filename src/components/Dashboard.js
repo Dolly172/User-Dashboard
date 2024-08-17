@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import { userData } from '../data';
 import Pagination from './Pagination';
 import UserTable from './UserTable';
+import FilterBar from './FilterBar';
 
 const PAGE_SIZE = 6;
 
@@ -11,22 +12,33 @@ const Dashboard = () => {
     role: '',
     status: '',
     sortField: '',
+    sortDirection: '',
   });
+
   const [currentPage, setCurrentPage] = useState(1);
 
   const filteredUsers = useMemo(() => {
-    return userData
+    let sortedAndFilteredUsers = userData
       .filter(user =>
         user.name.toLowerCase().includes(filters.searchTerm.toLowerCase()) ||
         user.email.toLowerCase().includes(filters.searchTerm.toLowerCase())
       )
       .filter(user => filters.role ? user.role === filters.role : true)
       .filter(user => filters.status ? user.status === filters.status : true)
-      .sort((a, b) => {
-        if (!filters.sortField) return 0;
-        return a[filters.sortField].localeCompare(b[filters.sortField]);
-      });
-  }, [filters]);
+      
+      if (filters.sortField) {
+        sortedAndFilteredUsers = sortedAndFilteredUsers.sort((a, b) => {
+          if (filters.sortDirection === 'asc') {
+            return a[filters.sortField].localeCompare(b[filters.sortField]);
+          } else if (filters.sortDirection === 'desc') {
+            return b[filters.sortField].localeCompare(a[filters.sortField]);
+          }
+          return 0; 
+        });
+      }
+
+      return sortedAndFilteredUsers
+    }, [filters]);
 
   const paginatedUsers = useMemo(() => {
     const startIndex = (currentPage - 1) * PAGE_SIZE;
@@ -50,36 +62,33 @@ const Dashboard = () => {
   };
 
   const handleSortChange = (field) => {
-    setFilters(prevFilters => ({
-      ...prevFilters,
-      sortField: field,
-    }));
+    setFilters((prevFilters) => {
+        let newSortDirection = '';
+        if (prevFilters.sortField === field) {
+          if (prevFilters.sortDirection === 'asc') {
+            newSortDirection = 'desc';
+          } else if (prevFilters.sortDirection === 'desc') {
+            newSortDirection = '';
+          } else {
+            newSortDirection = 'asc';
+          }
+        } else {
+          newSortDirection = 'asc';
+        }
+  
+        return {
+          ...prevFilters,
+          sortField: field,
+          sortDirection: newSortDirection,
+        };
+      });
   };
 
   return (
 
     <div className="dashboard">
-      <div className="filters">
-        <input
-          type="text"
-          placeholder="Search by name or email"
-          name="searchTerm"
-          value={filters.searchTerm}
-          onChange={handleInputChange}
-          aria-label="Search"
-        />
-        <select name="role" onChange={handleInputChange} aria-label="Filter by role">
-          <option value="">All Roles</option>
-          <option value="Admin">Admin</option>
-          <option value="User">User</option>
-        </select>
-        <select name="status" onChange={handleInputChange} aria-label="Filter by status">
-          <option value="">All Statuses</option>
-          <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
-        </select>
-      </div>
-      <UserTable users={paginatedUsers} onSortChange={handleSortChange} sortField={filters.sortField} />
+      <FilterBar filters={filters} handleInputChange={handleInputChange} />
+      <UserTable users={paginatedUsers} onSortChange={handleSortChange} filters={filters} />
       <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handlePageChange} />
     </div>
   );
